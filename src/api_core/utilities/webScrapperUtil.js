@@ -1,19 +1,18 @@
 const pt = require('puppeteer');
 
-let num = 0
-async function startpt(targetUrl, interaction) {
-
+async function startpt(targetUrl) {
     let err;
     let errorResponse;
     const browser = await pt.launch({
-        executablePath: '/usr/bin/google-chrome',
-            headless: "new",
-            args: [
-                '--no-sandbox', '--disable-setuid-sandbox',
-                `--user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36`
-            ],
-            userDataDir: './my-cache-dir', // Set a valid local path for cache
-        });
+        // executablePath: '/usr/bin/google-chrome',
+        headless: "new",
+        userDataDir: null,
+        args: [
+            '--no-sandbox', '--disable-setuid-sandbox', '--disable-extensions', '--disable-dev-shm-usage',
+            `--user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36`
+        ],
+        // userDataDir: './cache', // Set a valid local path for cache
+    });
     
 
     const page = await browser.newPage();
@@ -58,19 +57,14 @@ async function startpt(targetUrl, interaction) {
 }
 
 function userToSearch(user) {
-    console.log(user)
     const username = user[0].split(" ").join("%20")
     const tag = `%23${user[1].split(" ").join("%20")}`
-    console.log(username + tag)
     return (username + tag)
 }
 
-function valUserRegex(useridentifier, interaction) {
+function valUserRegex(useridentifier) {
     if (/^[a-zA-Z0-9\s]+$/.test(useridentifier[0])
         && /^[a-zA-Z0-9\s]+$/.test(useridentifier[1])) return true
-
-    // ErrorEmbed(interaction, 'Invalid Characters')
-    // logger(`Regex error`)
     return false
 }
 

@@ -12,6 +12,8 @@
   "dependencies": {
     "express": "^4.19.2",
     "puppeteer": "^21.3.6",
-    "puppeteer-core": "^21.3.6"
+    "puppeteer-core": "^21.3.6",
+    "puppeteer-extra": "^3.3.6",
+    "puppeteer-extra-plugin-block-resources": "^2.4.3"
   }
 }
